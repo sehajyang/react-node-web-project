@@ -1,5 +1,7 @@
 # .travis.yml 
 language: node_js
+before_install:
+  - npm install mocha -g
 branches:
   only:
     - master
