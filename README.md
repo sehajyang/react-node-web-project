@@ -1,4 +1,7 @@
-# node-crawling-project
+# node-crawling-project 
+
+[![Build Status](https://travis-ci.com/sehajyang/node-crawling-project.svg?branch=master)](https://travis-ci.com/sehajyang/node-crawling-project)
+
 Node Crawling Web Application Project
 
 개발 기간 : 180922 - 181021
