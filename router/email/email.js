@@ -1,4 +1,4 @@
-var express = require('expres');
+var express = require('express');
 var app = express();
 var router = express.Router();
 var path = require('path');
@@ -40,4 +40,4 @@ router.post('/ajax', function(req, res){
 
 });
 
-module.exports = router;
+module.exports = router; 
