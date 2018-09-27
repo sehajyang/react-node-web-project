@@ -6,7 +6,7 @@ Node Crawling Web Application Project
 
 개발 기간 : 180922 - 181021
 
-참여 인원 : 4명 (노수진도 껴줘요)
+참여 인원 : 4명
 
 ### Skill
 
