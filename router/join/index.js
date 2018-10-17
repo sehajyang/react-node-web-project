@@ -42,7 +42,6 @@ passport.use('local-join', new LocalStrategy({
 }, function(req, email, password, done) {
   var query = connection.query('select * from user where email=?', [email], function(err,rows) {
     if(err) return done(err);
-
     if(rows.length) {
       console.log('existed user')
       return done(null, false, {message : 'your email is already used'})
@@ -63,21 +62,5 @@ router.post('/', passport.authenticate('local-join', {
   failureRedirect: '/join',
   failureFlash: true })
 )
-
-// router.post('/',function(req,res){
-//   var body = req.body;
-//   var email = body.email;
-//   var name = body.name;
-//   var pwd = body.pwd;
-
-//   var sql = {email : email, name : name, pwd : pwd};
-//   var query = connection.query('insert into user set ?', sql, function(err, rows){
-//   if(err) {
-//     throw err;
-//   }else{
-//     res.render('welcome.ejs', {'name' : name, 'id' : rows.insertId})}
-//   })
-// })
-
 
 module.exports = router;
