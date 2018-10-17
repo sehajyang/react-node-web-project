@@ -1,6 +1,8 @@
 # node-crawling-project
 
 Node Crawling Web Application Project
+
+[![Build Status](https://travis-ci.com/sehajyang/node-crawling-project.svg?branch=master)](https://travis-ci.com/sehajyang/node-crawling-project)
  
  ### Skill
  
