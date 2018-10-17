@@ -1,7 +1,7 @@
-@import 'utils';
+@import '../../../styles/utils.scss';
 
 .header {
-  background: $oc-purple-4;
+  background: $oc-violet-3;
   .header-content {
     height: 5rem;
     width: 1400px;
