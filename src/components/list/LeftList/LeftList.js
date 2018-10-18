@@ -14,7 +14,10 @@ const PostItem = () => {
          We are BTS! <br />
          Debut 2013.06.13 <br />
          JIN SUGA RM JHOPE JIMIN V JK <br />
-         Big Hit Entertainment
+         Big Hit Entertainment<br />
+         Album list <br />
+         Love Yourself <br />
+         Wings <br />
 
       </div>
   </div>
