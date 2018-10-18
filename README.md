@@ -2,6 +2,8 @@
 
 Node Crawling Web Application Project
 
+리액트+노드 공부하는 토이프로젝트
+
 [![Build Status](https://travis-ci.com/sehajyang/node-crawling-project.svg?branch=master)](https://travis-ci.com/sehajyang/node-crawling-project)
  
  ### Skill
