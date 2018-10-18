@@ -1,106 +1,89 @@
-let postId = 1;
+const { ObjectId } = require('mongoose').Types;
+const Joi = require('joi');
 
-const posts = [
-  {
-    id: 1,
-    title: '제목',
-    body: '내용'
-  }
-];
+exports.checkObjectId =(ctx, next) => {
+    const { id } = ctx.params;
 
-/* 포스트 작성 */
-exports.write = (ctx) => {
-  const {
-    title,
-    body
-  } = ctx.request.body;
-
-  postId += 1; // 기존의 postId 값에 1을 더함
-
-  const post = { id: postId, title, body };
-  posts.push(post);
-  ctx.body = post;
+    if(!ObjectId.isValid(id)){
+        ctx.status = 400;
+        return null;
+    }
+    return next();
 };
+const Post = require('models/post');
 
-/* 포스트 목록 조회 */
-exports.list = (ctx) => {
-  ctx.body = posts;
+exports.write = async (ctx) => {
+    const schema = Joi.object().keys({
+        title: Joi.string().required(),
+        location: Joi.string().required(),
+        body: Joi.string().required(),
+        tags: Joi.array().items(Joi.string()).required()
+    });
+    //validate(검증할객체, 스키마)
+    const result = Joi.validate(ctx.request.body, schema);
+
+    if(result.error){
+        ctx.status = 400;
+        ctx.body = result.error;
+        return;
+    }
+
+    const { title, location, body, tags } = ctx.request.body;
+
+    const post = new Post({
+        title, location, body, tags
+    });
+
+    try {
+        await post.save();
+        ctx.body = post;
+    }catch(e) {
+        ctx.throw(e, 500);
+    }
 };
-
-/* 특정 포스트 조회 */
-exports.read = (ctx) => {
-  const { id } = ctx.params;
-
-  const post = posts.find(p => p.id.toString() === id);
-
-  if (!post) {
-    ctx.status = 404;
-    ctx.body = {
-      message: '포스트가 존재하지 않습니다.'
-    };
-    return;
-  }
-
-  ctx.body = post;
+exports.list = async (ctx) => {
+    try{
+        const posts = await Post.find().exec();
+        ctx.body = posts;
+    }catch(e) {
+        ctx.throw(e, 500);
+    }
 };
+exports.read = async (ctx) => {
+    const { id } = ctx.params;
+    try{
+        const post = await Post.findById(id).exec();
 
-/* 특정 포스트 제거 */
-exports.remove = (ctx) => {
-  const { id } = ctx.params;
-
-  const index = posts.findIndex(p => p.id.toString() === id);
-
-  if (index === -1) {
-    ctx.status = 404;
-    ctx.body = {
-      message: '포스트가 존재하지 않습니다.'
-    };
-    return;
-  }
-  //제거
-  posts.splice(index, 1);
-  ctx.status = 204; 
+        if(!post){
+            ctx.status = 404;
+            return;
+        }
+        ctx.body = post;
+    } catch(e){
+        ctx.throw(e, 500);
+    }
 };
-
-/* 포스트 수정*/
-exports.replace = (ctx) => {
-  const { id } = ctx.params;
-
-  const index = posts.findIndex(p => p.id.toString() === id);
-
-  if (index === -1) {
-    ctx.status = 404;
-    ctx.body = {
-      message: '포스트가 존재하지 않습니다.'
-    };
-    return;
-  }
-  //객체 덮어씌우기
-  posts[index] = {
-    id,
-    ...ctx.request.body
-  };
-  ctx.body = posts[index];
+exports.remove = async (ctx) => {
+    const { id } = ctx.params;
+    try{
+        await Post.findByIdAndRemove(id).exec();
+        ctx.status = 204;
+    } catch(e){
+        ctx.throw(e, 500);
+    }   
 };
-
-/* 포스트 수정  */
-exports.update = (ctx) => {
-  const { id } = ctx.params;
-
-  const index = posts.findIndex(p => p.id.toString() === id);
-
-  if (index === -1) {
-    ctx.status = 404;
-    ctx.body = {
-      message: '포스트가 존재하지 않습니다.'
-    };
-    return;
-  }
-
-  // 새로운걸로 덮어 씌우기
-  posts[index] = {
-    ...posts[index],
-    ...ctx.request.body
-  };
-  ctx.body = posts[index];
-}; 
+exports.update = async (ctx) => {
+    const { id } = ctx.params;
+    try{
+        const post = await Post.findByIdAndUpdate(id, ctx.request.body, {
+            new: true
+        }).exec();
+        if(!post){
+            ctx.status = 404;
+            return;
+        }
+        ctx.body = post;
+    } catch(e){
+        ctx.throw(e, 500);
+    } 
+};
