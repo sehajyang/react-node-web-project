@@ -1,0 +1,9 @@
+@import '../../../styles/utils.scss';
+
+.post-list {
+    .right-item {
+        float: right;
+        border : 2px solid black;
+        width: 20%;
+    }
+}

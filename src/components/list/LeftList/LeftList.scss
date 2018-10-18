@@ -1,0 +1,15 @@
+@import '../../../styles/utils.scss';
+
+.post-list {
+    .left-item {
+        //border : 2px solid black;
+        float: left;
+        width: 20%;
+        padding-left:15px;
+
+        .left-text {
+            margin-top: 10px;
+            color: $oc-gray-6;
+        }
+    }
+}
