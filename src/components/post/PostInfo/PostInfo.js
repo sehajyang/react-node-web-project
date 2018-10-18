@@ -14,6 +14,7 @@ const PostInfo = () => (
         <a>#V</a> <a>#RM</a>
       </div>
       <div className={cx('date')}>2018-10-18</div>
+      <div className={cx('location')}>베를린 벤츠아레나</div>
    </div>
   </div>
 );
