@@ -4,6 +4,7 @@ import ListWrapper from 'components/list/ListWrapper';
 import PostList from 'components/list/PostList';
 import LeftList from 'components/list/LeftList';
 import RightList from 'components/list/RightList';
+import Pagination from 'components/list/Pagination';
 
 const ListPage = () => {
     return(
@@ -12,6 +13,7 @@ const ListPage = () => {
                 <LeftList/>
                 <RightList/>
                 <PostList/>
+                <Pagination/>
             </ListWrapper>
         </PageTemplate>
     );

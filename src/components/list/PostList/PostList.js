@@ -21,7 +21,7 @@ const PostItem = () => {
         <tbody>
           <tr>
             <td>1</td>
-            <td>베를린투어</td>
+            <td><Link to="/post/1">베를린투어</Link></td>
             <td>2018-10-18</td>
             <td>독일 베를린 벤츠아레나</td>
           </tr>
