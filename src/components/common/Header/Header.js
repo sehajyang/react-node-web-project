@@ -6,21 +6,22 @@ import Button from 'components/common/Button';
 
 const cx = classNames.bind(styles);
 
-const Header = ({postId, onRemove}) => (
+const Header = ({postId, logged, onRemove}) => (
   <header className={cx('header')}>
     <div className={cx('header-content')}>
       <div className={cx('brand')}>
         <Link to="/">schedule</Link>
       </div>
-      <div className={cx('right')}>
+      {<div className={cx('right')}>
         {
+          // flex를 유지하기 위하여 배열 형태로 렌더링합니다.
           postId && [
             <Button key="edit" theme="outline" to={`/editor?id=${postId}`}>수정</Button>,
-            <Button key="remove" theme="outline" to={`/editor?id=${onRemove}`}>삭제</Button>
+            <Button key="remove" theme="outline" onClick={onRemove}>삭제</Button>
           ]
         }
-        <Button theme ="outline" to="/editor">일정추가</Button>
-      </div>
+        <Button theme="outline" to="/editor">일정추가</Button>
+      </div> }
     </div>
   </header>
 );
