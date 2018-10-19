@@ -52,6 +52,7 @@ const PostList = ({posts}) => {
     return (
       <div>
        <table className={cx('table-thead')}>
+        <thead>
           <tr>
             <th width="10%">Num</th>
             <th width="35%">title</th>
@@ -59,7 +60,8 @@ const PostList = ({posts}) => {
             <th width="20%">Date</th>
             <th width="15%">Member</th>
           </tr>
-        </table>
+        </thead>
+       </table>
         <div className={cx('post-list')}>
           {postList}
         </div>

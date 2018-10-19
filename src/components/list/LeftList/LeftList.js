@@ -3,6 +3,7 @@ import React from 'react';
 import styles from './LeftList.scss';
 import classNames from 'classnames/bind';
 import profileImage from 'resources/img/bts2.png'
+import { Link } from 'react-router-dom';
 
 const cx = classNames.bind(styles);
 
@@ -15,10 +16,11 @@ const PostItem = () => {
          Debut 2013.06.13 <br />
          JIN SUGA RM JHOPE JIMIN V JK <br />
          Big Hit Entertainment<br />
-         Album list <br />
-         Love Yourself <br />
-         Wings <br />
-
+      </div>
+      <div className={cx('left-link')}>
+        <Link to="/">Album list</Link> <br />
+         <a href="https://www.ibighit.com/main/index">BigHit Shop</a> <br />
+         <a href="https://www.bt21.com/">BT21</a> <br />
       </div>
   </div>
   )

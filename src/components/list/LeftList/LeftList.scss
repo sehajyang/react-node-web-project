@@ -1,6 +1,7 @@
 @import '../../../styles/utils.scss';
 
 .post-list {
+   
     .left-item {
         //border : 2px solid black;
         float: left;
@@ -10,6 +11,18 @@
         .left-text {
             margin-top: 6px;
             color: $oc-gray-6;
+            
+    }
+    .left-link {
+        padding-top: 13px;
+        color: $oc-gray-6;
+        font-size: 1.1rem;
+        font-family: 'Ubuntu';
+        font-weight: bold;
+        line-height: 30px;
+            a:hover {
+                color: $oc-red-6;
+            }
         }
     }
 }

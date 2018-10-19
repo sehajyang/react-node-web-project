@@ -25,7 +25,7 @@
       color: $oc-gray-5;
     }
     p {
-      font-weight: 300;
+      font-weight: 150;
       color: $oc-gray-7;
     }
     .tags {
@@ -43,6 +43,8 @@
     }
     table {
       width: 57%;
+      font-size: 1.15rem;
+      font-family: 'Segoe UI';
       
       tr {
         background: rgba($oc-yellow-6, 0.05);
