@@ -42,8 +42,24 @@ exports.write = async (ctx) => {
     }
 };
 exports.list = async (ctx) => {
+    const page = parseInt(ctx.query.page || 1, 10); //페이지 없으면 1로간주
+
+    if(page<1){
+        ctx.status = 400;
+        return;
+    }
+
     try{
-        const posts = await Post.find().exec();
+        const posts = await Post.find()
+            .sort({_id: -1})
+            .limit(10) //보이는 갯수 제한
+            .skip((page -1) * 10)
+            .exec();
+
+        const postCount = await Post.count().exec();
+        //마지막 페이지 알려주기
+        ctx.set('Last-Page', Math.ceil(postCount / 10));
+        //커스텀 헤더 설정
         ctx.body = posts;
     }catch(e) {
         ctx.throw(e, 500);
