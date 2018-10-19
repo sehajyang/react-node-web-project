@@ -21,6 +21,9 @@ mongoose.connect(mongoURI).then(() => {
     console.log(e);
 });
 
+router.get('/album', (ctx) => {
+    ctx.body = 'album';
+});
 
 router.use('/api', api.routes());
 
