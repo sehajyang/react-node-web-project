@@ -42,29 +42,32 @@
       }
     }
     table {
-      padding-left: 0.5rem;
-      width: 58%;
-
-      th {
-        background: $oc-red-6;
-        color: white;
-      }
-
+      width: 57%;
+      
       tr {
-          background: rgba($oc-yellow-6, 0.05);
-          &:hover {
-              // 호버 시 배경색 변경
-              background: $oc-yellow-1;
-              color : $oc-red-6;
-            }
+        background: rgba($oc-yellow-6, 0.05);
+        &:hover {
+          // 호버 시 배경색 변경
+          background: $oc-yellow-1;
+          color : $oc-red-6;
+        }
       }
       td {
-          border-bottom: 2px solid white;
+        border-bottom: 2px solid white;
       }
     }
-    
   }
-  .post-item + .post-item { // 아이템 사이 여백
-    border-top: 1px solid $oc-gray-3;
+  // .post-item + .post-item { // 아이템 사이 여백
+  //   border-top: 1px solid black;
+  // }
+}
+.table-thead {
+  width: 57%;
+  tr {
+    background: $oc-red-6;
+    color: white;
+    padding-left: 0.5rem;
+
   }
+
 }

@@ -5,15 +5,19 @@ import PostList from 'components/list/PostList';
 import LeftList from 'components/list/LeftList';
 import RightList from 'components/list/RightList';
 import Pagination from 'components/list/Pagination';
+import ListContainer from 'containers/list/ListContainer';
 
-const ListPage = () => {
+const ListPage = ({match}) => {
+    const { page = 1, tag} = match.params;
     return(
         <PageTemplate>
             <ListWrapper>
                 <LeftList/>
                 <RightList/>
-                <PostList/>
-                <Pagination/>
+                <ListContainer
+                    page={parseInt(page, 10)}
+                    tag={tag}
+                />
             </ListWrapper>
         </PageTemplate>
     );

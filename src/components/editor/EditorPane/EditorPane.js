@@ -74,7 +74,7 @@ class EditorPane extends Component {
          onChange={handleChange} 
          />
       <div className={cx('s_location')}>
-        <input 
+        <input className={cx('s_location')}
           name="s_location" 
           placeholder="장소를 입력하세요" 
           value={s_location}
