@@ -14,13 +14,13 @@ class EditorPaneContainer extends Component {
   }
 
   render() {
-    const { title, location, tags, markdown } = this.props;
+    const { title, s_location, tags, markdown } = this.props;
     const { handleChangeInput } = this;
 
     return (
       <EditorPane
         title={title}
-        location={location}
+        s_location={s_location}
         markdown={markdown}
         tags={tags}
         onChangeInput={handleChangeInput}
@@ -33,7 +33,7 @@ class EditorPaneContainer extends Component {
 export default connect(
   (state) => ({
     title: state.editor.get('title'),
-    location: state.editor.get('location'),
+    s_location: state.editor.get('s_location'),
     markdown: state.editor.get('markdown'),
     tags: state.editor.get('tags'),
   }),

@@ -9,7 +9,9 @@ const App = () => {
         <Route exact path="/" component ={ListPage} />
         <Route path = "/page/:page" component={ListPage} />
         <Route path = "/tag/:tag/:page?" component={ListPage} />
+        <Route path = "/api/post/:id" component={PostPage} />
         <Route path = "/post/:id" component={PostPage} />
+        <Route path = "/post" component={PostPage} />
         <Route path = "/editor" component={EditorPage} />
         <Route component={NotFoundPage} />
       </Switch>

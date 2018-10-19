@@ -12,12 +12,13 @@ const PostItem = () => {
     <div className={cx('table')}>
       <table>
         <thead>
+          <tr>
             <th width="10%">Num</th>
             <th width="45%">title</th>
             <th width="20%">Date</th>
             <th width="25%">Location</th>
+          </tr>
         </thead>
-        
         <tbody>
           <tr>
             <td>1</td>

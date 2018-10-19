@@ -1,105 +1,147 @@
-const { ObjectId } = require('mongoose').Types;
+const Post = require('models/post');
 const Joi = require('joi');
 
-exports.checkObjectId =(ctx, next) => {
-    const { id } = ctx.params;
 
-    if(!ObjectId.isValid(id)){
-        ctx.status = 400;
-        return null;
-    }
-    return next();
+const { ObjectId } = require('mongoose').Types;
+
+exports.checkObjectId = (ctx, next) => {
+  const { id } = ctx.params;
+
+  // 검증 실패
+  if (!ObjectId.isValid(id)) {
+    ctx.status = 400; // 400 Bad Request
+    return null;
+  }
+
+  return next();
 };
-const Post = require('models/post');
 
+/*
+  POST /api/posts
+*/
 exports.write = async (ctx) => {
-    const schema = Joi.object().keys({
-        title: Joi.string().required(),
-        location: Joi.string().required(),
-        body: Joi.string().required(),
-        tags: Joi.array().items(Joi.string()).required()
-    });
-    //validate(검증할객체, 스키마)
-    const result = Joi.validate(ctx.request.body, schema);
+  const schema = Joi.object().keys({
+    title: Joi.string().required(),
+    s_location: Joi.string(),
+    body: Joi.string().required(),
+    tags: Joi.array().items(Joi.string()).required() 
+  });
 
-    if(result.error){
-        ctx.status = 400;
-        ctx.body = result.error;
-        return;
-    }
+  // 첫 번째 파라미터는 검증할 객체, 두 번째는 스키마
+  const result = Joi.validate(ctx.request.body, schema);
 
-    const { title, location, body, tags } = ctx.request.body;
+  // 오류 발생 시 오류 내용 응답
+  if (result.error) {
+    ctx.status = 400;
+    ctx.body = result.error;
+    return;
+  }
 
-    const post = new Post({
-        title, location, body, tags
-    });
+  const { title, s_location, body, tags } = ctx.request.body;
 
-    try {
-        await post.save();
-        ctx.body = post;
-    }catch(e) {
-        ctx.throw(e, 500);
-    }
+  // Post 인스턴스를 생성합니다.
+  const post = new Post({
+    title, s_location, body, tags
+  });
+
+  try {
+    await post.save(); 
+    ctx.body = post; // 결과 반환.
+  } catch (e) {
+    ctx.throw(e, 500);
+  }
 };
+
+
+/*
+  GET /api/posts
+*/
 exports.list = async (ctx) => {
-    const page = parseInt(ctx.query.page || 1, 10); //페이지 없으면 1로간주
+  // page가 주어지지 않았다면 1로 간주
+  const page = parseInt(ctx.query.page || 1, 10);
+  const { tag } = ctx.query;
 
-    if(page<1){
-        ctx.status = 400;
-        return;
-    }
+  const query = tag ? {
+    tags: tag // tags 배열에 tag를 가진 포스트 찾기
+  } : {};
 
-    try{
-        const posts = await Post.find()
-            .sort({_id: -1})
-            .limit(10) //보이는 갯수 제한
-            .skip((page -1) * 10)
-            .exec();
+  if (page < 1) {
+    ctx.status = 400;
+    return;
+  }
 
-        const postCount = await Post.count().exec();
-        //마지막 페이지 알려주기
-        ctx.set('Last-Page', Math.ceil(postCount / 10));
-        //커스텀 헤더 설정
-        ctx.body = posts;
-    }catch(e) {
-        ctx.throw(e, 500);
-    }
+  try {
+    const posts = await Post.find(query)
+      .sort({ _id: -1 })
+      .limit(10)
+      .skip((page - 1) * 10)
+      .lean()
+      .exec();
+    const postCount = await Post.countDocuments(query).exec();
+    const limitBodyLength = post => ({
+      ...post,
+      body: post.body.length < 350 ? post.body : `${post.body.slice(0, 350)}...`
+    });
+    ctx.body = posts.map(limitBodyLength);
+
+    ctx.set('Last-Page', Math.ceil(postCount / 10));
+  } catch (e) {
+    ctx.throw(500, e);
+  }
 };
+
+
+
+/*
+  GET /api/posts/:id
+*/
 exports.read = async (ctx) => {
-    const { id } = ctx.params;
-    try{
-        const post = await Post.findById(id).exec();
-
-        if(!post){
-            ctx.status = 404;
-            return;
-        }
-        ctx.body = post;
-    } catch(e){
-        ctx.throw(e, 500);
+  const { id } = ctx.params;
+  try {
+    const post = await Post.findById(id).exec();
+    // 포스트가 존재하지 않음
+    if (!post) {
+      ctx.status = 404;
+      return;
     }
+    ctx.body = post;
+  } catch (e) {
+    ctx.throw(e, 500);
+  }
 };
+
+
+/*
+  DELETE /api/posts/:id
+*/
 exports.remove = async (ctx) => {
-    const { id } = ctx.params;
-    try{
-        await Post.findByIdAndRemove(id).exec();
-        ctx.status = 204;
-    } catch(e){
-        ctx.throw(e, 500);
-    }   
+  const { id } = ctx.params;
+  try {
+    await Post.findByIdAndRemove(id).exec();
+    ctx.status = 204;
+  } catch (e) {
+    ctx.throw(e, 500);
+  }
 };
+
+
+/*
+  PATCH /api/posts/:id
+  { title, s_location body, tags }
+*/
 exports.update = async (ctx) => {
-    const { id } = ctx.params;
-    try{
-        const post = await Post.findByIdAndUpdate(id, ctx.request.body, {
-            new: true
-        }).exec();
-        if(!post){
-            ctx.status = 404;
-            return;
-        }
-        ctx.body = post;
-    } catch(e){
-        ctx.throw(e, 500);
-    } 
+  const { id } = ctx.params;
+  try {
+    const post = await Post.findByIdAndUpdate(id, ctx.request.body, {
+      new: true
+    }).exec();
+    if (!post) {
+      ctx.status = 404;
+      return;
+    }
+    ctx.body = post;
+  } catch (e) {
+    ctx.throw(e, 500);
+  }
 };
+

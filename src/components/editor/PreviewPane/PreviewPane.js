@@ -7,13 +7,13 @@ import MarkdownRender from 'components/common/MarkdownRender';
 const cx = classNames.bind(styles);
 
 
-const PreviewPane = ({markdown, title, location}) => (
+const PreviewPane = ({markdown, title, s_location}) => (
   <div className={cx('preview-pane')}>
     <h1 className={cx('title')}>
       {title} 
     </h1>
-      <h3 className={cx('location')}>
-        {location}
+      <h3 className={cx('s_location')}>
+        {s_location}
       </h3>
     <div>
       <MarkdownRender markdown={markdown} />

@@ -5,9 +5,9 @@ import PreviewPane from 'components/editor/PreviewPane';
 
 class PreviewPaneContainer extends Component {
     render() {
-        const { markdown, title, location } = this.props;
+        const { markdown, title, s_location } = this.props;
         return(
-            <PreviewPane title={title} location={location} markdown={markdown} />
+            <PreviewPane title={title} s_location={s_location} markdown={markdown} />
         );
     }
 }
@@ -15,7 +15,7 @@ class PreviewPaneContainer extends Component {
 export default connect(
     (state) => ({
         title: state.editor.get('title'),
-        location: state.editor.get('location'),
+        s_location: state.editor.get('s_location'),
         markdown: state.editor.get('markdown')
     })
 )(PreviewPaneContainer);
