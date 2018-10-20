@@ -18,7 +18,8 @@ const PostItem = () => {
          Big Hit Entertainment<br />
       </div>
       <div className={cx('left-link')}>
-        <Link to="/">Album list</Link> <br />
+        <Link to="/album">Album list</Link> <br />
+         <a href="https://www.youtube.com/user/ibighit">ibighit</a> <br />
          <a href="https://www.ibighit.com/main/index">BigHit Shop</a> <br />
          <a href="https://www.bt21.com/">BT21</a> <br />
       </div>

@@ -8,3 +8,7 @@ export const getPostList = ({ tag, page }) => axios.get(`/api/posts/?${queryStri
 
 export const editPost = ({id, s_location, title, body, tags}) => axios.patch(`/api/posts/${id}`, { title, s_location, body, tags});
 export const removePost = (id) => axios.delete(`/api/posts/${id}`);
+
+//album 관련 조회
+export const getAlbum = (album_title) => axios.get(`/api/albums/?${queryString.stringify({album_title})}`);
+export const getAlbumList = ({ album_title, num }) => axios.get(`/api/albums/${album_title}/${num}`);
