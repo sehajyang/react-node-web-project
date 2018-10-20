@@ -4,7 +4,7 @@ const albumsCtrl = require('./albums.ctrl');
 const albums = new Router();
 
 albums.get('/', albumsCtrl.list);
-albums.get('/:id',albumsCtrl.checkObjectId, albumsCtrl.read);
-albums.get('/:album_title',albumsCtrl.checkObjectId, albumsCtrl.albumitemlist);
+albums.get('/:album_titles/:id', albumsCtrl.read);
+albums.get('/:album_titles', albumsCtrl.albumitemlist);
 
 module.exports = albums;

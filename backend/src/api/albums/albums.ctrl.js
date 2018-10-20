@@ -31,17 +31,18 @@ exports.list = async (ctx) => {
   GET /api/albums/:album_title
 */
 exports.albumitemlist = async (ctx) => {
-  const { album_title } = ctx.params;
+  const { album_titles } = ctx.params;
 
-  const query = { album_title: album_title }; 
+  const query = {
+    album_title : album_titles }; 
 
   try {
     const album = await Album.find(query).exec();
+    console.log(album_titles);
     
     // 존재하지 않음
     if (!album) {
       ctx.status = 404;
-      console.log(album_title);
       return;
     }
     ctx.body = album;
@@ -51,12 +52,18 @@ exports.albumitemlist = async (ctx) => {
 };
 
 /*
-  GET /api/albums/:id
+  GET /api/albums/:album_title/:id
 */
 exports.read = async (ctx) => {
-  const { id } = ctx.params;
+  const { id, album_titles } = ctx.params;
+  console.log(id, album_titles);
+  const query = {
+    album_title : album_titles, 
+    num: id 
+    }; 
+
   try {
-    const album = await Album.findById(id).exec();
+    const album = await Album.find(query).exec();
     // 존재하지 않음
     if (!album) {
       ctx.status = 404;
