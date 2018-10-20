@@ -32,9 +32,10 @@ exports.list = async (ctx) => {
 */
 exports.albumitemlist = async (ctx) => {
   const { album_titles } = ctx.params;
+  console.log(album_titles);
 
-  const query = {
-    album_title : album_titles }; 
+  const query = album_titles ?{
+    album_title : album_titles } : {}; 
 
   try {
     const album = await Album.find(query).exec();
