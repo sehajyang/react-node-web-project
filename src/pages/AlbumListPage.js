@@ -13,6 +13,8 @@ const AlbumListPage = ({ match }) => {
                 <AlbumListContainer 
                     album_title = {album_title} 
                 />
+                <h1>aaaaaaa</h1>
+                <h1>{album_title}</h1>
             </ListWrapper>
         </PageTemplate>
     );

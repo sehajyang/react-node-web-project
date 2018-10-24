@@ -16,6 +16,7 @@ const ListPage = ({match}) => {
                     page={parseInt(page, 10)}
                     tag={tag}
                 />
+                <h1>Tag {tag}</h1>
             </ListWrapper>
         </PageTemplate>
     );

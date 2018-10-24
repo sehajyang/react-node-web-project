@@ -23,6 +23,7 @@ class AlbumListContainer extends Component {
   componentDidUpdate(prevProps, prevState) {
     //album_title 바뀔때 리스트 다시 불러옴
     if(prevProps.album_title !== this.props.album_title) {
+      console.log('albumlistcontainer');
       this.getAlbumList();
       //스크롤바 맨 위로
       document.documentElement.scrollTop = 0; 
@@ -31,11 +32,11 @@ class AlbumListContainer extends Component {
   
   
   render() {
-    const { loading, album_title, albums } = this.props;
+    const { loading, albums, album_title } = this.props;
     if(loading) return null;
     return (
       <div>
-        <AlbumList album_title={album_title}/>
+        <AlbumList albums={albums} album_title={album_title}/>
       </div>
     );
   }

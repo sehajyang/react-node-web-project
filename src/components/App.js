@@ -21,7 +21,7 @@ const App = () => {
         <Route path="/editor" component={EditorPage}/>
         <Route path="/album" component={AlbumListPage}/>
         <Route path="/album/:album_title" component={AlbumListPage}/>
-        <Route path="/:album_title" component={AlbumListPage}/>
+        <Route path="/album/:album_title/:num?" component={AlbumListPage}/>
         <Route component={NotFoundPage}/>
       </Switch>
     </div>

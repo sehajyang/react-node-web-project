@@ -18,10 +18,12 @@ class HeaderContainer extends Component {
     const { match } = this.props;
     
     const { id } = match.params;
+    const { album_title } = match.params;
 
     return (
       <Header
         postId={id}
+        albumId={album_title}
         onRemove={handleRemove}
       />
     );
