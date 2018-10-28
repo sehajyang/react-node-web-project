@@ -15,4 +15,3 @@ const Album = new Schema({
 });
 
 module.exports = mongoose.model('Album', Album);
-

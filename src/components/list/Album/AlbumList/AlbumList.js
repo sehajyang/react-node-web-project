@@ -23,6 +23,9 @@ const AlbumList = ({albums}) => {
   const albumList = albums.map( 
     (album) => {
       const {title, body, album_title, num, _id } = album.toJS();
+      AlbumList.defaultProps = {
+        album_title: {album_title}
+      }
       return (
         <AlbumItem
           title={title}
@@ -41,6 +44,9 @@ const AlbumList = ({albums}) => {
       {albumList}
     </div>
   );
+  
 };
+
+
 
 export default AlbumList;
