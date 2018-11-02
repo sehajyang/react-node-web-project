@@ -1,9 +1,20 @@
 # node-crawling-project
 
-크롤링 프로젝트를 하려고했지만 리액트+노드 공부하는 토이프로젝트
+크롤링 프로젝트를 하려고했지만 리액트+노드 공부하는 토이프로젝트입니다.
 
 [![Build Status](https://travis-ci.com/sehajyang/node-crawling-project.svg?branch=master)](https://travis-ci.com/sehajyang/node-crawling-project)
  
+## 구성
+
+- Main view
+
+- 마크다운 형식의 글 작성 및 수정 
+
+- 글 삭제(modal)
+
+- 앨범 리스트 조회
+
+
  ### Skill
  
 FrontEnd : React
