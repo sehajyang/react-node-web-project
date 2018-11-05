@@ -1,6 +1,6 @@
-# node-crawling-project
+# react-node-web-project
 
-크롤링 프로젝트를 하려고했지만 리액트+노드 공부하는 토이프로젝트입니다.
+리액트+노드 공부하는 토이프로젝트입니다.
 
 [![Build Status](https://travis-ci.com/sehajyang/node-crawling-project.svg?branch=master)](https://travis-ci.com/sehajyang/node-crawling-project)
  
